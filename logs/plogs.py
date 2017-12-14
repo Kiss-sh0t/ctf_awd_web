@@ -20,8 +20,9 @@ class LoggingMiddleware(object):
             url = request.META['PATH_INFO']
         else:
             url = request.META['PATH_INFO']+'?'+request.META['QUERY_STRING'] or ''
-        log = '[%s]--[IP:%s]--Method:%s--url:%s--POST:%s--UA:%s--cookie:%s'%(t,ip, method,url,body,ua,cookie)
-        self.logger.info(log)
+        log = '[%s]--[IP:%s]--Method:%s--url:%s--POST:%s--UA:%s--cookie:%s\n'%(t,ip, method,url,body,ua,cookie)
+        with open('/path_to_log', 'a+') as f:
+            f.write(log)
         return None
 
     def process_response(self, request, response):
